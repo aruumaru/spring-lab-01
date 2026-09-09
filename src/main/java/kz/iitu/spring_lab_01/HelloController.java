@@ -1,14 +1,39 @@
 package kz.iitu.spring_lab_01;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
+@RequestMapping("/api")
 public class HelloController {
 
-    @GetMapping("/api/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello, %s!", name);
+    @Value("${app.owner:Nuray}")
+    private String owner;
+
+    @GetMapping("/hello")
+    public Greeting hello(@RequestParam(defaultValue = "world") String name) {
+        return new Greeting("Hello, " + name + "!", owner, LocalDateTime.now());
     }
+
+    @GetMapping("/info")
+    public Info info() {
+        return new Info(owner,
+                System.getProperty("java.version"),
+                Runtime.getRuntime().availableProcessors());
+    }
+
+    // Вариант 1: Операции с двумя числами
+    @GetMapping("/sum")
+    public MathResult sum(@RequestParam(defaultValue = "0") int a,
+                          @RequestParam(defaultValue = "0") int b) {
+        return new MathResult(a, b, a + b, a - b, a * b);
+    }
+
+    public record Greeting(String message, String owner, LocalDateTime timestamp) { }
+
+    public record Info(String owner, String javaVersion, int cpuCores) { }
+
+    public record MathResult(int a, int b, int sum, int difference, int product) { }
 }
