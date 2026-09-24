@@ -8,17 +8,20 @@ import java.util.*;
 @Service
 public class NotificationService {
 
-    private final Notifier primary;              // @Primary -> EmailNotifier
-    private final Notifier console;              // указан явно
-    private final List<Notifier> all;             // все сразу, в порядке @Order
-    private final Map<String, Notifier> byName;   // ключ — имя бина
+    private final Notifier primary;
+    private final Notifier console;
+    private final Notifier custom;
+    private final List<Notifier> all;
+    private final Map<String, Notifier> byName;
 
     public NotificationService(Notifier primary,
                                @Qualifier("console") Notifier console,
+                               @Qualifier("upper") Notifier custom,
                                List<Notifier> all,
                                Map<String, Notifier> byName) {
         this.primary = primary;
         this.console = console;
+        this.custom = custom;
         this.all = all;
         this.byName = byName;
     }
@@ -26,6 +29,8 @@ public class NotificationService {
     public String viaPrimary(String message) { return primary.send(message); }
 
     public String viaConsole(String message) { return console.send(message); }
+
+    public String viaCustom(String message) { return custom.send(message); }
 
     public List<String> viaAll(String message) {
         return all.stream().map(n -> n.send(message)).toList();
