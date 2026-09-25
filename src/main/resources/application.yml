@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: spring-lab-01
+
+server:
+  port: 8080
+
+app:
+  date-pattern: yyyy-MM-dd HH:mm:ss
+  owner: Aruzhan Daniyar
+  group: IT1-2415IS
+  mail:
+    from: no-reply@iitu.kz
+    retry-count: 3
+    timeout: 5s
+    enabled: true
+
+logging:
+  level:
+    kz.iitu: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,env,configprops,conditions
+  endpoint:
+    env:
+      show-values: always
