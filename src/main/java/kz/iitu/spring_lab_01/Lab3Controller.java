@@ -30,6 +30,8 @@ public class Lab3Controller {
         m.put("mailRetryCount", props.mail().retryCount());
         m.put("mailTimeout", props.mail().timeout().toString());
         m.put("mailEnabled", props.mail().enabled());
+        m.put("uiTheme", props.ui().theme());
+        m.put("uiItemsPerPage", props.ui().itemsPerPage());
         m.put("serverPort", environment.getProperty("server.port"));
         m.put("activeProfiles", Arrays.asList(environment.getActiveProfiles()));
         m.put("banner", banner.describe());
