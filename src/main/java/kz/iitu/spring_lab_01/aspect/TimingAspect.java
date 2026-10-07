@@ -1,0 +1,2 @@
+package kz.iitu.spring_lab_01.aspect;public class TimingAspect {
+}
