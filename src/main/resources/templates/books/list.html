@@ -9,7 +9,7 @@
 <h1 th:text="${title}">Catalogue</h1>
 
 <p th:if="${message}" class="flash" th:text="${message}"></p>
-<form action="/books" method="post">
+<form th:action="@{/books}" method="post">
     <input name="title" placeholder="Title" required>
     <input name="author" placeholder="Author" required>
     <input name="year" type="number" placeholder="Year" required>
