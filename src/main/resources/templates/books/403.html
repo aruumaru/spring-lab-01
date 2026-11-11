@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Доступ запрещен</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding-top: 100px; background-color: #f4f4f9; }
+        .container { background: white; padding: 40px; border-radius: 8px; display: inline-block; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+        h1 { color: #d9534f; }
+        a { color: #337ab7; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>403 — Доступ запрещен</h1>
+    <p>У вашей учетной записи недостаточно прав для просмотра этой страницы.</p>
+    <p><a th:href="@{/books}">Вернуться к списку книг</a></p>
+</div>
+</body>
+</html>

@@ -17,11 +17,17 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/css/**").permitAll()
-                        .requestMatchers("/books/**").authenticated()
+                        .requestMatchers("/", "/login", "/css/**", "/403").permitAll() // Разрешаем доступ к /403
+                        .requestMatchers(HttpMethod.GET, "/books/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/books/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().denyAll())
                 .formLogin(form -> form.permitAll())
-                .logout(logout -> logout.logoutSuccessUrl("/?logout"));
+                .logout(logout -> logout.logoutSuccessUrl("/?logout"))
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/403") // Указываем кастомную страницу для 403 ошибки
+                );
+
         return http.build();
     }
 
